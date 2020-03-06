@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "memorelink",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}
