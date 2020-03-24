@@ -1,0 +1,50 @@
+
+
+.date > span {
+    display: block;
+    background: #ffffff;
+    color: #303C42;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    padding: 0 3px;
+}
+.date {
+    display: inline-block;
+    background: #f15f43;
+    padding: 2px;
+    line-height: 16px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 700;
+    color: #fff;
+    float: left;
+    margin-right: 10px;
+
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+h6.title {
+    font-size: 1em;
+    margin-bottom: 5px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.companyName {
+    font-size: 15px!important;
+    color: #0a208c;
+    font-weight: 700;
+}
+
+span.meta {
+    font-size: .85em;
+    color: #555;
+}

@@ -1,21 +1,75 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" >
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ folder }}</ion-title>
+    <!-- <ion-title>{{ folder }}</ion-title> -->
+    <ion-title>Memorelink</ion-title>
+    <!-- <img src="../../assets/imgs/logo.png"> -->
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-content [fullscreen]="true" >
+  <ion-header collapse="condense" >
     <ion-toolbar>
-      <ion-title size="large">{{ folder }}</ion-title>
+      <!-- <ion-title size="large">{{ folder }}</ion-title> -->
+      <ion-title size="large"></ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong class="capitalize">{{ folder }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+    <!-- <strong class="capitalize">{{ folder }}</strong>
+    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
+
+		<!-- <div id="search_wrapper1">
+      <form #f="ngForm" (ngSubmit)="searchjob(f.value)">
+       <div id="search_form" class="clearfix">
+           &nbsp;
+         <h1>Start tech job search</h1>
+         <p>
+         <input type="text" class="text" required="required" ngModel name="keyword" #username="ngModel" id="keyword" placeholder="" value="{{ keyword }}" [ngModel]="keyword" placeholder="Skills or Job title"><br>
+         <input type="text" class="text" required="required" value= "location" ngModel name="location" #username="ngModel" id="location" placeholder="" value="{{ location }}" [ngModel]="location" placeholder= "City, State"><br>
+         <label class="btn2 btn-2 btn2-1b"><input type="submit" value="Find Jobs"></label>
+         </p>
+
+       </div>
+     </form>
+   </div> -->
+   <form #f="ngForm" (ngSubmit)="searchjob(f.value)">
+   <ion-list>
+
+    <!-- <h1>Start tech job search</h1> -->
+    <ion-item>
+      <!-- <ion-label fixed>Skill or job details</ion-label> -->
+      <ion-input type="text" value="" placeholder="Skills or Job details" ngModel name="keyword" id="keyword" [ngModel]="keyword"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <!-- <ion-label fixed>City, State</ion-label> -->
+      <ion-input type="text" value="" placeholder= "City, State" ngModel name="location" id="location" [ngModel]="location"></ion-input>
+    </ion-item>
+  </ion-list>
+  <!-- <IonButton color="primary">Primary</IonButton> -->
+  <ion-item>
+    <ion-button shape="round" class="submit-button" type="submit">Job Search</ion-button>
+    
+  </ion-item>
+  </form>
   </div>
+  <ion-list>
+    <ion-item *ngFor="let pj of PostJobc">
+      <div class="date">{{ pj.LastModifiedDate |  date:'dd'}} <span>{{ dformat.monthNumToSigName(pj.LastModifiedDate |  date:'MM') }}</span></div>
+      
+      <div class="date_desc"><h6 class="title"><a [routerLink]="['/jobdetails',pj.objectID]" (click) = "jobDetails(pj.objectID)">{{ pj.JobTitle }}</a></h6>
+        <i class="fa fa-building-o" aria-hidden="true"></i>&nbsp;<span class="companyName">{{ pj.Company.substring(0,19) }}</span><span class="companyName" *ngIf="pj.Company.length>19">...</span>
+        &nbsp;&nbsp;<i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;<span class="meta"><b>{{ pj.JobCity }}, {{ pj.JobState }}</b></span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;<span class="meta">{{ getDateDiff(pj.LastModifiedDate) }}&nbsp;days ago</span>
+      </div>
+
+    </ion-item>
+  </ion-list>
+
+
+
 </ion-content>

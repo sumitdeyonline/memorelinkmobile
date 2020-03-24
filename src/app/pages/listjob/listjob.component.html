@@ -1,0 +1,99 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="start" >
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons> -->
+
+      <ion-buttons slot="start">
+        <ion-back-button>Back</ion-back-button>
+      </ion-buttons>
+    
+    <!-- <ion-title>{{ folder }}</ion-title> -->
+    <ion-title>Memorelink</ion-title>
+    <!-- <img src="../../assets/imgs/logo.png"> -->
+
+    <ion-buttons slot="end" >
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" >
+  <ion-header collapse="condense" >
+    <ion-toolbar>
+      <!-- <ion-title size="large">{{ folder }}</ion-title> -->
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+
+
+  <div id="container">
+
+    <!-- <strong class="capitalize">{{ folder }}</strong>
+    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
+
+		<!-- <div id="search_wrapper1">
+      <form #f="ngForm" (ngSubmit)="searchjob(f.value)">
+       <div id="search_form" class="clearfix">
+           &nbsp;
+         <h1>Start tech job search</h1>
+         <p>
+         <input type="text" class="text" required="required" ngModel name="keyword" #username="ngModel" id="keyword" placeholder="" value="{{ keyword }}" [ngModel]="keyword" placeholder="Skills or Job title"><br>
+         <input type="text" class="text" required="required" value= "location" ngModel name="location" #username="ngModel" id="location" placeholder="" value="{{ location }}" [ngModel]="location" placeholder= "City, State"><br>
+         <label class="btn2 btn-2 btn2-1b"><input type="submit" value="Find Jobs"></label>
+         </p>
+
+       </div>
+     </form>
+   </div> -->
+
+
+
+<!-- <ion-button (click)="toggleInfiniteScroll()" expand="block">
+    Toggle Infinite Scroll
+  </ion-button> -->
+
+  <ion-list>
+    <ion-item *ngFor="let pj of pagedItems">
+
+
+
+        <ion-avatar slot="start">
+          <!-- <img src="/assets/images/a2.png"> -->
+          <div class="date">{{ pj.LastModifiedDate |  date:'dd'}} <span>{{ dformat.monthNumToSigName(pj.LastModifiedDate |  date:'MM') }}</span></div>
+
+        </ion-avatar>
+        <ion-label>
+  
+          <div class="date_desc"><h6 class="title"><a [routerLink]="['/jobdetails',pj.objectID]">{{ pj.JobTitle }}</a></h6>
+            <i class="fa fa-building-o" aria-hidden="true"></i>&nbsp;<span class="companyName">{{ pj.Company.substring(0,19) }}</span><span class="companyName" *ngIf="pj.Company.length>15">...</span>
+            &nbsp;<ion-icon name="navigate-circle-outline"></ion-icon><span class="meta"><b>{{ pj.JobCity }}, {{ pj.JobState }}</b></span>
+            &nbsp;<ion-icon name="today-outline"></ion-icon>&nbsp;<span class="meta">{{ getDateDiff(pj.LastModifiedDate) }}&nbsp;days</span>
+          </div>        
+
+        </ion-label>
+
+
+    </ion-item>
+  </ion-list>  
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event,pager.currentPage + 1)">
+    
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+
+ 
+
+
+  </div>
+
+
+
+
+</ion-content>
