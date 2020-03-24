@@ -1,0 +1,112 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="start" >
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons> -->
+
+      <ion-buttons slot="start">
+        <ion-back-button>Back</ion-back-button>
+      </ion-buttons>
+    
+    <!-- <ion-title>{{ folder }}</ion-title> -->
+    <ion-title>Memorelink</ion-title>
+    <!-- <img src="../../assets/imgs/logo.png"> -->
+
+    <ion-buttons slot="end" >
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" >
+  <ion-header collapse="condense" >
+    <ion-toolbar>
+      <!-- <ion-title size="large">{{ folder }}</ion-title> -->
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+
+    <ion-card>
+      <ion-card-header>
+
+        <ion-card-title *ngIf="pjob !=null"  style="color: red;">{{ pjob.JobTitle }}</ion-card-title>
+        <ion-card-subtitle *ngIf="pjob !=null">{{ pjob.Company.substring(0,15).toUpperCase() }}&nbsp;<ion-icon name="navigate-circle-outline"></ion-icon><b>{{ pjob.JobCity }}, {{ pjob.JobState }}</b>&nbsp;<ion-icon name="today-outline"></ion-icon>{{ getDateDiff(pjob.LastModifiedDate) }}&nbsp;days</ion-card-subtitle>
+      </ion-card-header> 
+
+
+      <ion-card-content *ngIf="pjob !=null">
+        <ion-item>
+          <ion-button size="small" color="tertiary" slot="start" (click) ="onApply()">Apply Now</ion-button>
+        </ion-item>
+        <ion-icon name="wallet"></ion-icon>&nbsp;<b>{{ pjob.EmploymentTypes }}</b><br>
+        <ion-icon name="cash-outline"></ion-icon>&nbsp;<b>{{ pjob.Compensation }}</b><br>
+        <ion-icon name="home"></ion-icon>&nbsp;<b>{{ travelReq }},&nbsp;{{ pjob.TravelRequirements }}</b>
+
+        <ion-item-divider></ion-item-divider>
+
+        <!-- <ion-item> -->
+        <h3 *ngIf="pjob !=null"> Skill Set</h3>
+        <!-- </ion-item>   -->
+        <div *ngIf="pjob !=null" [innerHTML]=" pjob.Skills"></div>  
+        <ion-item-divider></ion-item-divider>
+        <h3 *ngIf="pjob !=null"> Job Description</h3>    
+        <div *ngIf="pjob !=null"  class="title" [innerHTML]="pjob.JobDesc"></div>
+        <ion-item>
+          <ion-button size="small" color="tertiary" slot="start">Apply Now</ion-button>
+        </ion-item>        
+      </ion-card-content>
+
+    </ion-card>
+
+    <!-- <ion-button expand="block">Apply Now</ion-button> -->
+
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title" style="color: red;">{{ pjob.JobTitle }}</ion-item>
+    </ion-list> -->
+
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title" >{{ pjob.Company.substring(0,15).toUpperCase() }}</ion-item>
+    </ion-list>     -->
+
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title"><b>{{ pjob.JobCity }}, {{ pjob.JobState }}</b></ion-item>
+    </ion-list>  -->
+
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title"><b>{{ getDateDiff(pjob.LastModifiedDate) }}&nbsp;days ago</b></ion-item>
+    </ion-list>  -->
+
+
+
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title"><b>{{ pjob.EmploymentTypes }}</b></ion-item>
+    </ion-list> -->
+
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title"><b>{{ pjob.Compensation }}</b></ion-item>
+    </ion-list> -->
+
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title"><b>{{ travelReq }},&nbsp;{{ pjob.TravelRequirements }}</b></ion-item>
+    </ion-list> -->
+
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title"><b>Skill Set</b></ion-item>
+    </ion-list> -->
+
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title" [innerHTML]=" pjob.Skills"></ion-item>
+    </ion-list> -->
+    <!-- <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title"><b>Job Description</b></ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item *ngIf="pjob !=null"  class="title" [innerHTML]="pjob.JobDesc"><b>Skill Set</b></ion-item>
+    </ion-list> -->
+
+
+
+  </div>
+</ion-content>

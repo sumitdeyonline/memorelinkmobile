@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="start" >
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons> -->
+
+      <ion-buttons slot="start">
+        <ion-back-button>Back</ion-back-button>
+      </ion-buttons>
+    
+    <!-- <ion-title>{{ folder }}</ion-title> -->
+    <ion-title>Memorelink</ion-title>
+    <!-- <img src="../../assets/imgs/logo.png"> -->
+
+    <ion-buttons slot="end" >
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" >
+  <ion-header collapse="condense" >
+    <ion-toolbar>
+      <!-- <ion-title size="large">{{ folder }}</ion-title> -->
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+
+    <div style="color: red;" *ngIf="checkApplied">
+      {{ applySucessMessage }}
+    </div>
+
+    <div *ngIf="!checkApplied">
+      <form [formGroup]="applyJobForm">
+        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+          <ion-item>
+            <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required type="text" formControlName="FirstName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required type="text" formControlName="LastName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Enter your Email <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required type="text" formControlName="Email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Phone Number <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required type="text" formControlName="PhoneNumber"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Cover Letter</ion-label>
+            <ion-textarea rows="4" formControlName="CoverLetter"></ion-textarea>
+          </ion-item>
+        </ion-list>
+  
+        <div class="ion-padding">
+          <ion-button expand="block" type="submit" class="ion-no-margin" (click)="applyNow()">Apply Job</ion-button>
+        </div>    
+      </form>
+    </div>
+
+
+
+
+  </div>
+
+</ion-content>
