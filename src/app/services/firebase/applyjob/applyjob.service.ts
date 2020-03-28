@@ -22,7 +22,7 @@ export class ApplyjobService {
 
   addUpdateApplyJobs(ajobc :  ApplyJob) {
     this.ajCollection.add(ajobc).then((entry) => {
-      //("Entry is "+entry.id);
+      ("Entry is "+entry.id);
     })
   }
 

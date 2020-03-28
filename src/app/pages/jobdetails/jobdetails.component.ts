@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
 import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
@@ -11,9 +11,11 @@ import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
 export class JobdetailsComponent implements OnInit {
   id: any;
   public pjob: PostJobc;
+  //@Output() pjob: EventEmitter<PostJobc> = new EventEmitter();
   travelReq: string;
   
   constructor(private _activeRoute:ActivatedRoute, private postservice: PostjobService,private router: Router) { 
+
 
 
   }
@@ -22,7 +24,7 @@ export class JobdetailsComponent implements OnInit {
 
     this._activeRoute.paramMap.subscribe(params => {
       this.id = params.get('id');
-      //console.log("Key Value :::::::: "+this.id);
+      console.log("Key Value :::::::: "+this.id);
     });    
     this.postservice.getPostJobsById(this.id).subscribe(pjob=> {
       this.pjob = pjob;

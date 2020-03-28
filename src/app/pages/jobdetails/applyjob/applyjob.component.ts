@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
 import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
@@ -8,6 +8,8 @@ import { UploadResumeService } from 'src/app/services/firebase/uploadresume/uplo
 import { ApplyjobService } from 'src/app/services/firebase/applyjob/applyjob.service';
 import { EmailService } from 'src/app/services/email/email.service';
 import { FileUpload } from 'src/app/services/firebase/uploadresume/fileupload';
+import { FIREBASE_CONFIG } from 'src/app/global-config';
+//import './../../../../assets/js/smtp.js'; 
 
 @Component({
   selector: 'applyjob',
@@ -16,6 +18,7 @@ import { FileUpload } from 'src/app/services/firebase/uploadresume/fileupload';
 })
 export class ApplyjobComponent implements OnInit {
   id: any;
+  //@Input('pjob') pjob: PostJobc;
   public pjob: PostJobc;
   private applyJobForm: FormGroup;
   selectedFiles: FileList;
@@ -25,47 +28,60 @@ export class ApplyjobComponent implements OnInit {
   currentFileUpload: FileUpload;
   progress: { percentage: number } = { percentage: 0 };
   showUpload: boolean = true;
+  email: any;
+  applySucessMessage: string = FIREBASE_CONFIG.ApplyJobSucess;
+  numberOfResume: Number = 0;
 
-  constructor(private _activeRoute:ActivatedRoute, private postservice: PostjobService,  fb: FormBuilder,private rUploadService: UploadResumeService,private ajob: ApplyjobService, private sEmail: EmailService) {
+
+  constructor(private _activeRoute:ActivatedRoute, private postservice: PostjobService,  private fb: FormBuilder,private rUploadService: UploadResumeService,private ajob: ApplyjobService, private sEmail: EmailService) {
     this._activeRoute.paramMap.subscribe(params => {
       this.id = params.get('id');
       console.log("Key Value :::::::: "+this.id);
-      // this.postservice.getPostJobsById(this.id).subscribe(pjob=> {
-      //   this.pjob = pjob;
-        console.log("Test....")
-        this.applyJobForm =  fb.group({
-          FirstName: [null, Validators.required],
-          LastName: [null, Validators.required],
-          Email: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
-          //PhoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{10}')]],
-          PhoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{3}?[-. ]?[0-9]{3}?[-. ]?[0-9]{4}')]],
-          CoverLetter:[null],
-          // fileUpload: [Validators.required],
-          // fileUploadExist: [null]
-        });
-  
-        this.checkApplied = false;
-        this.rUploadService.downloadURLTempResume = '';      
-  
-      // })      
     }); 
-
    }
 
   ngOnInit() {
 
+      this.postservice.getPostJobsById(this.id).subscribe(pjob=> {
+        this.pjob = pjob;
+        if (this.pjob == null) {
+          console.log("null");
+        } else {
+          console.log("not null");
+        }
+         console.log("Test...."+ this.pjob.ApplyToEmail);
+         console.log("Test...."+ this.pjob.JobTitle);  
+         console.log("Test...."+ this.pjob.id);  
+  
+      })
+      
+      this.applyJobForm =  this.fb.group({
+        FirstName: [null, Validators.required],
+        LastName: [null, Validators.required],
+        Email: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
+        //PhoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{10}')]],
+        PhoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{3}?[-. ]?[0-9]{3}?[-. ]?[0-9]{4}')]],
+        CoverLetter:[null],
+        // fileUpload: [Validators.required],
+        // fileUploadExist: [null]
+      });
+
+      this.checkApplied = false;
+      this.rUploadService.downloadURLTempResume = '';     
+
+
 
   }
 
-  applyNow() {
-    console.log("First Name ::: "+this.applyJobForm.get('FirstName').value);
-    console.log("Last Name ::: "+this.applyJobForm.get('LastName').value);
-    console.log("FromEmail ::: "+this.applyJobForm.get('Email').value);
-    console.log("Phone Number ::: "+this.applyJobForm.get('PhoneNumber').value);
-    console.log("CoverLetter ::: "+this.applyJobForm.get('CoverLetter').value);
-  }
+  // applyNow() {
+  //   console.log("First Name ::: "+this.applyJobForm.get('FirstName').value);
+  //   console.log("Last Name ::: "+this.applyJobForm.get('LastName').value);
+  //   console.log("FromEmail ::: "+this.applyJobForm.get('Email').value);
+  //   console.log("Phone Number ::: "+this.applyJobForm.get('PhoneNumber').value);
+  //   console.log("CoverLetter ::: "+this.applyJobForm.get('CoverLetter').value);
+  // }
 
-  applyNow1(){
+  applyNow(){
     //console.log(this.applyJobForm);
     //console.log("Download URL :::::::: "+this.rUploadService.downloadURLTempResume);
     //console.log("First Name ::: "+this.applyJobForm.get('FirstName').value);
@@ -85,7 +101,7 @@ export class ApplyjobComponent implements OnInit {
                        PhoneNumber: this.applyJobForm.get('PhoneNumber').value,
                        CoverLetter: this.applyJobForm.get('CoverLetter').value,
                        fileUploadURL: this.rUploadService.downloadURLTempResume,
-                       JobID: this.pjob.id,
+                       JobID: this.id,
                        JobTitle: this.pjob.JobTitle,
                        username : username,
                        joblocation: this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry,
@@ -94,11 +110,13 @@ export class ApplyjobComponent implements OnInit {
                      };
 
 
-      //console.log("First Name "+this.applyJobForm)
+      //console.log("First Name "+this.applyJobForm);
+      // console.log("Job ID "+this.id);
 
       // console.log("User name ::: "+this.applyJob.username);
       // console.log("Created Date ::: "+this.applyJob.CreatedDate);
-      //console.log("Download URL ::: "+this.applyJob.fileUploadURL);
+      // console.log("Download URL ::: "+this.applyJob.fileUploadURL);
+      // console.log("Apply To Eemail :::: "+this.pjob.ApplyToEmail);
 
       this.ajob.addUpdateApplyJobs(this.applyJob);
       this.checkApplied = true;
@@ -112,7 +130,7 @@ export class ApplyjobComponent implements OnInit {
     //   uploadResume = 
     // }
     let subject = 'Your job has been applyed('+this.pjob.JobTitle+')';
-    let body = '<i>Your job has been applied</i> <br/></br> <b>Job Title: </b> '+this.pjob.JobTitle+' <br /> <b>joblocation: </b>'+this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry+'<br /> <b>Job Description : </b>'+this.pjob.JobDesc+' <br />  <br><br> <b>Thank you <br>MemoreLink Team</b>'
+    let body = '<i>Your job has been applied</i> <br><br> <b>Job Title: </b> '+this.pjob.JobTitle+' <br /> <b>joblocation: </b>'+this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry+'<br /> <b>Job Description : </b>'+this.pjob.JobDesc+' <br />  <br><br> <b>Thank you <br>MemoreLink Team</b>'
     this.sEmail.sendEmail(this.applyJobForm.get('Email').value,'',subject,body);
     
     let vJobSublect =this.applyJobForm.get('FirstName').value+' '+this.applyJobForm.get('LastName').value+' has applied the job('+this.pjob.JobTitle+')';
@@ -150,7 +168,9 @@ export class ApplyjobComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
+    console.log("Selected Files ........"+this.selectedFiles);
     if (this.validateFile(this.selectedFiles.item(0).name)) {
+      console.log("Upload file........");
       this.filleUploadEnabled = true;
     } else {
       this.filleUploadEnabled = false;
