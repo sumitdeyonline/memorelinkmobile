@@ -22,7 +22,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApplyjobModule } from './pages/jobdetails/applyjob/applyjob.module';
 import { ApplyjobService } from './services/firebase/applyjob/applyjob.service';
 import { EmailService } from './services/email/email.service';
-
+import { MatProgressSpinnerModule, MatProgressBarModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AboutbModule } from './pages/about/about.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,8 +41,12 @@ import { EmailService } from './services/email/email.service';
     JobdetailsModule,
     ApplyjobModule,
     AngularFireDatabaseModule,
+    AboutbModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   providers: [
     StatusBar,

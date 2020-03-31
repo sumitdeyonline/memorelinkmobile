@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ListjobComponent } from './pages/listjob/listjob.component';
 import { JobdetailsComponent } from './pages/jobdetails/jobdetails.component';
 import { ApplyjobComponent } from './pages/jobdetails/applyjob/applyjob.component';
+import { AboutComponent } from './pages/about/about.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,12 @@ const routes: Routes = [
     path: 'applyjob/:id',
     //loadChildren: () => import('./pages/listjob/listjob.module').then( m => m.ListjobModule)  
     component: ApplyjobComponent  
-  }   
+  },
+  {
+    path: 'about',
+    //loadChildren: () => import('./pages/listjob/listjob.module').then( m => m.ListjobModule)  
+    component: AboutComponent  
+  }       
 ];
 
 @NgModule({

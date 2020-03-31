@@ -30,7 +30,7 @@ export class ListjobComponent {
   listjob = new ListJob();
   client: any;
   index: any;
-
+  loading: boolean = false;
 
     // pager object
     pager: any = {};
@@ -47,7 +47,7 @@ export class ListjobComponent {
       this.location = params['location'];
       //console.log("Location " + this.location);
       //this.getPostJobsAlgolia(this.keyword,this.location);
-      console.log("Keyword : "+this.keyword+" Localtion : "+this.location);
+      //console.log("Keyword : "+this.keyword+" Localtion : "+this.location);
       // this.listjob.keyword = this.keyword;
       // this.listjob.location = this.location;
       this.getPostJobsAlgolia(this.keyword,this.location);
@@ -89,7 +89,7 @@ export class ListjobComponent {
          this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
    
          //console.log(" keyword :::: "+keyword+"location :::: "+location);
-   
+         this.loading = true;
          if ((keyword.trim() == "") && (location.trim() == "")) {
            //console.log("Nothing ... ");
            this.index.search({
@@ -97,6 +97,7 @@ export class ListjobComponent {
              //let j=0;
              //this.PostJobcFinal = [];
              this.PostJobc = data.hits;
+             this.loading = false; 
              this.setPage(1);
            });        
          } else {
@@ -156,6 +157,7 @@ export class ListjobComponent {
                //let j=0;
                //this.PostJobcFinal = [];
                this.PostJobc = data.hits;
+               this.loading = false; 
                this.setPage(1);
              });
            } else  {
@@ -167,6 +169,7 @@ export class ListjobComponent {
                //let j=0;
                //this.PostJobcFinal = [];
                this.PostJobc = data.hits;
+               this.loading = false; 
                this.setPage(1);
      
              });
@@ -201,7 +204,7 @@ export class ListjobComponent {
       //console.log("Page Count...1  ::: "+this.PostJobc.length);
       // get current page of items
       this.pagedItems = this.PostJobc.slice(0, this.pager.endIndex + 1);
-      console.log("Page Count...1  ::: "+this.pagedItems.length);
+      //console.log("Page Count...1  ::: "+this.pagedItems.length);
 
 
       

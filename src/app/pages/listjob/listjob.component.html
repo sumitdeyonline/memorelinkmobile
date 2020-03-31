@@ -55,6 +55,23 @@
     Toggle Infinite Scroll
   </ion-button> -->
 
+
+  <!-- loader.component.html -->
+  <div ali class="progress-loader" [hidden]="!loading" >
+    
+      <mat-progress-spinner [mode]="'indeterminate'" [color]="'warn'" style="left:34%;">
+      </mat-progress-spinner>
+  
+  </div>                
+
+  <!-- <div ali class="progress-loader" [hidden]="!loading" style="align-content: center;left:45%;">
+  
+      <mat-progress-bar [mode]="'indeterminate'">
+      </mat-progress-bar>
+  
+  </div>   -->
+
+
   <ion-list>
     <ion-item *ngFor="let pj of pagedItems">
 

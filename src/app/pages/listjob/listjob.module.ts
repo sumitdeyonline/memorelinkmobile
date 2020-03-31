@@ -8,13 +8,16 @@ import { IonicModule } from '@ionic/angular';
 
 import { ListjobComponent } from './listjob.component';
 import { FolderPageRoutingModule } from 'src/app/folder/folder-routing.module';
+import { MatProgressSpinnerModule, MatProgressBarModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FolderPageRoutingModule
+    FolderPageRoutingModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   declarations: [ListjobComponent]
 })

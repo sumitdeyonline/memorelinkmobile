@@ -1,7 +1,8 @@
 {
   "name": "memorelink",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

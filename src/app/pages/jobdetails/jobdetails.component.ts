@@ -24,7 +24,7 @@ export class JobdetailsComponent implements OnInit {
 
     this._activeRoute.paramMap.subscribe(params => {
       this.id = params.get('id');
-      console.log("Key Value :::::::: "+this.id);
+      //console.log("Key Value :::::::: "+this.id);
     });    
     this.postservice.getPostJobsById(this.id).subscribe(pjob=> {
       this.pjob = pjob;
