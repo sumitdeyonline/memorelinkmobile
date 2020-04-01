@@ -20,7 +20,7 @@ export class ApplyjobComponent implements OnInit {
   id: any;
   //@Input('pjob') pjob: PostJobc;
   public pjob: PostJobc;
-  private applyJobForm: FormGroup;
+  applyJobForm: FormGroup;
   selectedFiles: FileList;
   filleUploadEnabled: boolean = false;
   applyJob : ApplyJob;
