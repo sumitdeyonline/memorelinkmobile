@@ -9,6 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { ListjobComponent } from './listjob.component';
 import { FolderPageRoutingModule } from 'src/app/folder/folder-routing.module';
 import { MatProgressSpinnerModule, MatProgressBarModule } from '@angular/material';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { MatProgressSpinnerModule, MatProgressBarModule } from '@angular/materia
     FolderPageRoutingModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    NgbTypeaheadModule
   ],
   declarations: [ListjobComponent]
 })

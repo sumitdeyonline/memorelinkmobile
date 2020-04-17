@@ -88,8 +88,19 @@ export const SEARCH_CONFIG = {
     LIST_JOB_DESC_STATUS: 400,
     PAGE_SIZE: 10,
     CURRENT_PAGE: 1,
-    ZIPCODE_API_URL: 'https://www.zipcodeapi.com/rest/',
-    ZIPCODE_API: 'GNSZy5dfcTtnYL78PeldQR4eyam3IzVMply2lWLfDsuu3WmpED29mn7x6DC87Ccv'
+    // ZIPCODE_API_URL: 'https://www.zipcodeapi.com/rest/',
+    // ZIPCODE_API: 'GNSZy5dfcTtnYL78PeldQR4eyam3IzVMply2lWLfDsuu3WmpED29mn7x6DC87Ccv',
+    //GEODB_API_URL: 'http://geodb-free-service.wirefreethought.com/v1/geo/cities', // Free
+    GEODB_API_URL: 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities', //paid
+    GEODB_API_HOST: 'wft-geo-db.p.rapidapi.com',
+    GEODB_API_KEY: '8c1c06616cmsh2bba6f77a4816bfp17c015jsn71bcba1596e9',
+    GEODB_COUNTRY_ID: 'US',
+    //GET_CITY_WITH_ZIP: 'http://api.zippopotam.us/us/' GET_CITY_WITH_ZIP: 'http://api.zippopotam.us/us/' // http://api.zippopotam.us/us/94551
+    GET_CITY_WITH_ZIP: 'https://ziptasticapi.com/', //http://ziptasticapi.com/94551
+    MAX_CHARACTER_TYPE_AHEAD: 4,
+    MAX_LIMIT_CITY_SEARCH: 20,
+    MAX_LIMIT_REDIUS_SEARCH: 100
+
 }
 
 export const AUTH_CONFIG: AuthConfiguration = {
@@ -103,7 +114,7 @@ export const AUTH_CONFIG: AuthConfiguration = {
     //callbackURL: 'http://macgain.com/dist/callback',  // production
     //callbackURL: 'https://career.macgain.com/callback',  // production
     callbackURL: 'https://memorelink.com/callback',  // production
-    // callbackURL: 'http://localhost:4200/callback',
+    //callbackURL: 'http://localhost:4200/callback',
 
     audience: 'https:/memorelink.auth0.com/userinfo',
 
@@ -111,7 +122,7 @@ export const AUTH_CONFIG: AuthConfiguration = {
     //redirectUri: 'http://macgain.com/dist/',       // production
     //redirectUri: 'https://career.macgain.com/',       // production
     redirectUri: 'https://memorelink.com/',       // production
-    // redirectUri: 'http://localhost:4200/',
+    //redirectUri: 'http://localhost:4200/',
 
 
     responseType: 'token id_token',

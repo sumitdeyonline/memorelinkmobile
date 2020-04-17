@@ -25,6 +25,8 @@ import { EmailService } from './services/email/email.service';
 import { MatProgressSpinnerModule, MatProgressBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AboutbModule } from './pages/about/about.module';
+import { LocationService } from './services/location/location.service';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,6 +49,7 @@ import { AboutbModule } from './pages/about/about.module';
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    NgbTypeaheadModule
   ],
   providers: [
     StatusBar,
@@ -59,6 +62,7 @@ import { AboutbModule } from './pages/about/about.module';
     ApplyjobService,
     EmailService,
     HttpClient,
+    LocationService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

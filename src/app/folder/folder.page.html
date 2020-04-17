@@ -45,9 +45,19 @@
       <ion-input type="text" value="" placeholder="Skills or Job details" ngModel name="keyword" id="keyword" [ngModel]="keyword"></ion-input>
     </ion-item>
   
+    
     <ion-item>
+
       <!-- <ion-label fixed>City, State</ion-label> -->
-      <ion-input type="text" value="" placeholder= "City, State" ngModel name="location" id="location" [ngModel]="location"></ion-input>
+      <ion-input type="text" value="" 
+        placeholder= "City, State or Zipcode" 
+        ngModel name="location" 
+        id="location" 
+        [ngModel]="location"
+        (keyup)="zipcodeSearch($event.target.value)">
+      </ion-input>
+
+
     </ion-item>
   </ion-list>
   <!-- <IonButton color="primary">Primary</IonButton> -->
