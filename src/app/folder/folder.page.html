@@ -46,8 +46,18 @@
     </ion-item>
   
     
-    <ion-item>
+    <!-- <ion-item>
+      <ion-label fixed>City, State</ion-label>
+      <ion-input type="text" value="" 
+        placeholder= "City, State or Zipcode" 
+        ngModel name="location" 
+        id="location" 
+        [ngModel]="location"
+        (keyup)="zipcodeSearch($event.target.value)">
+      </ion-input>
+    </ion-item> -->
 
+    <ion-item>
       <!-- <ion-label fixed>City, State</ion-label> -->
       <ion-input type="text" value="" 
         placeholder= "City, State or Zipcode" 
@@ -56,9 +66,21 @@
         [ngModel]="location"
         (keyup)="zipcodeSearch($event.target.value)">
       </ion-input>
-
-
     </ion-item>
+
+  <!-- <ion-item>
+      <select-searchable
+          placeholder= "City, State or Zipcode" 
+          [(ngModel)]="location"
+          title="cityD"
+          itemValueField="location"
+          itemTextField="location"
+          [items]="searchvar"
+          [canSearch]="true">
+      </select-searchable>
+  </ion-item> -->
+
+
   </ion-list>
   <!-- <IonButton color="primary">Primary</IonButton> -->
   <ion-item>
