@@ -52,9 +52,14 @@ export class JobdetailsComponent implements OnInit {
   }
 
   onApply() {
-    console.log("Apply Job");
+    //console.log("Apply Job");
     this.router.navigate(['/applyjob',this.id]);
 
+  }
+
+  onNuroPrediction() {
+    this.router.navigate(['/jobprediction',this.pjob.Company]);
+    
   }
 
 }

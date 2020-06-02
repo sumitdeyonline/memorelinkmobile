@@ -9,7 +9,7 @@
       </ion-buttons>
     
     <!-- <ion-title>{{ folder }}</ion-title> -->
-    <ion-title>Memorelink</ion-title>
+    <ion-title>MeMoreLink</ion-title>
     <!-- <img src="../../assets/imgs/logo.png"> -->
 
     <ion-buttons slot="end" >
@@ -32,29 +32,33 @@
       <ion-card-header>
 
         <ion-card-title *ngIf="pjob !=null"  style="color: red;">{{ pjob.JobTitle }}</ion-card-title>
-        <ion-card-subtitle *ngIf="pjob !=null">{{ pjob.Company.substring(0,15).toUpperCase() }}&nbsp;<ion-icon name="navigate-circle-outline"></ion-icon><b>{{ pjob.JobCity }}, {{ pjob.JobState }}</b>&nbsp;<ion-icon name="today-outline"></ion-icon>{{ getDateDiff(pjob.LastModifiedDate) }}&nbsp;days</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="pjob !=null">{{ pjob.Company.substring(0,20) }}&nbsp;<ion-icon name="navigate-circle-outline"></ion-icon><b>{{ pjob.JobCity }}, {{ pjob.JobState }}</b>&nbsp;<ion-icon name="today-outline"></ion-icon>{{ getDateDiff(pjob.LastModifiedDate) }}&nbsp;days</ion-card-subtitle>
       </ion-card-header> 
 
 
       <ion-card-content *ngIf="pjob !=null">
         <ion-item>
-          <ion-button size="small" color="tertiary" slot="start" (click) ="onApply()">Apply Now</ion-button>
+          <ion-button size="small" color="tertiary" class="ButtonCapitalize" slot="start" (click) ="onApply()">Apply Now</ion-button>
+          <ion-button size="small" color="tertiary" class="ButtonCapitalize" slot="start" (click) ="onNuroPrediction()">Numerology Prediction</ion-button>
         </ion-item>
         <ion-icon name="wallet"></ion-icon>&nbsp;<b>{{ pjob.EmploymentTypes }}</b><br>
         <ion-icon name="cash-outline"></ion-icon>&nbsp;<b>{{ pjob.Compensation }}</b><br>
         <ion-icon name="home"></ion-icon>&nbsp;<b>{{ travelReq }},&nbsp;{{ pjob.TravelRequirements }}</b>
-
         <ion-item-divider></ion-item-divider>
 
         <!-- <ion-item> -->
+
+        <h3 *ngIf="pjob !=null"> Job Description</h3>    
+        <div *ngIf="pjob !=null"  class="title" [innerHTML]="pjob.JobDesc"></div>
+        <ion-item-divider></ion-item-divider>
         <h3 *ngIf="pjob !=null"> Skill Set</h3>
         <!-- </ion-item>   -->
         <div *ngIf="pjob !=null" [innerHTML]=" pjob.Skills"></div>  
         <ion-item-divider></ion-item-divider>
-        <h3 *ngIf="pjob !=null"> Job Description</h3>    
-        <div *ngIf="pjob !=null"  class="title" [innerHTML]="pjob.JobDesc"></div>
+        
         <ion-item>
-          <ion-button size="small" color="tertiary" slot="start">Apply Now</ion-button>
+          <ion-button size="small" color="tertiary" class="ButtonCapitalize" slot="start" (click) ="onApply()">Apply Now</ion-button>
+          <ion-button size="small" color="tertiary" class="ButtonCapitalize" slot="start" (click) ="onNuroPrediction()">Numerology Prediction</ion-button>
         </ion-item>        
       </ion-card-content>
 

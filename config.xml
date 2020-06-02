@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.techsite.memorelink" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Menmorelink</name>
-    <description>Premier Tech Career Site</description>
-    <author email="help@memorelink.com" href="http://memorelink.com/">Menmorelink</author>
+<widget id="io.techsite.memorelink" version="0.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>MeMoreLink</name>
+    <description>Premier Tech Career/Job Site</description>
+    <author email="help@memorelink.com" href="http://memorelink.com/">MeMoreLink</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

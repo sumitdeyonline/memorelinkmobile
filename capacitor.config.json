@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "memorelink",
+  "appName": "MeMoreLink",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

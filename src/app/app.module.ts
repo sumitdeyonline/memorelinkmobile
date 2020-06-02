@@ -27,6 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AboutbModule } from './pages/about/about.module';
 import { LocationService } from './services/location/location.service';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { JobpredictionModule } from './pages/jobdetails/jobpredictioncomponent/jobprediction.module';
+import { AlphabetNumerologyService } from './services/firebase/alphabetnumerology/alphabet-numerology.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,6 +44,7 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
     ListjobModule,
     JobdetailsModule,
     ApplyjobModule,
+    JobpredictionModule,
     AngularFireDatabaseModule,
     AboutbModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -60,6 +63,7 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
     SplashScreen,
     PostjobService,
     ApplyjobService,
+    AlphabetNumerologyService,
     EmailService,
     HttpClient,
     LocationService,

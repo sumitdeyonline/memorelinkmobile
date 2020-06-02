@@ -14,15 +14,16 @@ import { formatDate } from '@angular/common';
 
  import * as algoliasearch from 'algoliasearch';
 // import * as functions from 'firebase-functions';
-// import * as admin from 'firebase-admin';
+ //import * as admin from 'firebase-admin';
 
-//import { AuthService } from '../../authentication/auth.service';
+import { AuthService } from '../../authentication/auth.service';
 import { FIREBASE_CONFIG, SEARCH_CONFIG } from 'src/app/global-config';
 
 //import { Http, Headers, Response, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-// import { UserdetailsService } from '../userdetails/userdetails.service';
-// import { UserDetails } from '../userdetails/userdetails.model';
+import { UserdetailsService } from '../userdetails/userdetails.service';
+import { UserDetails } from '../userdetails/userdetails.model';
+//import { analytics } from 'firebase';
 
 
 
@@ -52,7 +53,7 @@ export class PostjobService {
   //searchQuery: string ="sumitdey@yahoo.com" ;
   jobs = [];
 
-  constructor(private afs : AngularFirestore,  private http: HttpClient) {
+  constructor(private afs : AngularFirestore, private auth: AuthService, private http: HttpClient, private uDetails: UserdetailsService) {
     this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob);
     //this.faqList = this.firebase.list('faq');
     //this.faqs = this.afs.collection('faq').valueChanges();
@@ -152,85 +153,89 @@ export class PostjobService {
 
 
 
-  // addUpdatePostJobs(pjobc :  PostJobc,id: string, createDate: Date, createdBy: string, uDetails: UserDetails) {
+  addUpdatePostJobs(pjobc :  PostJobc,id: string, createDate: Date, createdBy: string, uDetails: UserDetails ) {
 
-  //   //pjobc.LastModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+    //pjobc.LastModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
 
-  //   pjobc.LastModifiedDate = new Date();
-  //   pjobc.LastModifiedBy = this.auth.userProfile.name;
+    pjobc.LastModifiedDate = new Date();
+    pjobc.LastModifiedBy = this.auth.userProfile.name;
 
-  //   if ((id == null) || (id == '')) {
-  //     //pjobc.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-  //     pjobc.CreatedDate = new Date();
+    if ((id == null) || (id == '')) {
+      //pjobc.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      pjobc.CreatedDate = new Date();
 
+        //console.log("Job Count :::: "+uDetails.CompanyLogoURL);
 
-  //     pjobc.CreatedBy = this.auth.userProfile.name;
-  //     pjobc.isSearchable = true;
+      pjobc.CreatedBy = this.auth.userProfile.name;
+      //pjobc.isSearchable = true;
+      //pjobc.CompanyLogoURL = uDetails.CompanyLogoURL;
 
-  //     this.uDetails.addUpdateUserDetails(uDetails.id,uDetails.userName,uDetails.userRole,uDetails.company,uDetails.companyAddress,uDetails.phone,uDetails.postjobCount)
+      this.uDetails.addUpdateUserDetails(uDetails.id,uDetails.userName,uDetails.userRole,uDetails.company,uDetails.CompanyLogoURL,uDetails.companyAddress,uDetails.phone,uDetails.postjobCount, uDetails.auth0UserID)
 
-  //     //pjobc.JobTitle =
-  //     // console.log ("Create Date ::: "+pjobc.CreatedDate);
-  //     // console.log ("Created By ::: "+pjobc.CreatedBy);
-  //     // console.log("NEW FORM ....Service");
+      //pjobc.JobTitle =
+      // console.log ("Create Date ::: "+pjobc.CreatedDate);
+      // console.log ("Created By ::: "+pjobc.CreatedBy);
+      // console.log("NEW FORM ....Service");
 
-  //     // Generate New ID
-  //     // var idBefore =  this.afs.createId();
-  //     // console.log("ID Created :::: "+idBefore);
-
-
-  //     this.pjCollection.add(pjobc).then((entry) => {
-
-  //       //console.log("Entry ISSSSS "+entry.id);
-
-  //       this.AlgoliaObjectUpdate(id,pjobc,entry.id, createDate, createdBy);
+      // Generate New ID
+      // var idBefore =  this.afs.createId();
+      // console.log("ID Created :::: "+idBefore);
 
 
 
-  //     });
+      this.pjCollection.add(pjobc).then((entry) => {
 
+        //console.log("Entry ISSSSS "+entry.id);
 
-  //   } else {
-  //     //console.log("UPDATE FORM ...." + id);
-
-  //     //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
-  //     this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
-  //     this.pjDoc.update(pjobc).then((entry) => {
-  //       //console.log("Entry ISSSSS "+entry.id);
-  //       this.AlgoliaObjectUpdate(id,pjobc,id, createDate, createdBy);
-
-
-  //     });
-
-  //     // this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
-  //     //   { protocol: SEARCH_CONFIG.PROTOCOLS });
-
-
-  //       // var objects = [{
-  //       //   firstname: 'Jimmie',
-  //       //   lastname: 'Barninger',
-  //       //   objectID: id
-  //       // }];
+        this.AlgoliaObjectUpdate(id,pjobc,entry.id, createDate, createdBy);
 
 
 
+      });
 
-  //       // this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
-  //       // pjobc.objectID = id;
-  //       // console.log("Content ::::::: "+objects);
 
-  //       // this.index.saveObjects(objects, function (err, content) {
-  //       //   if (err) throw err;
-  //       //   console.log("Add Content :::::: "+content);
-  //       // });
-  //       // this.index.addObjects(objects, function(err, content) {
-  //       //   console.log(content);
-  //       // });
+    } else {
+      //console.log("UPDATE FORM ...." + id);
 
-  //   }
-  //   //this.AlgoliaUpdate();
+      //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
+      //pjobc.CompanyLogoURL = CompanyLogoURL;
+      this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
+      this.pjDoc.update(pjobc).then((entry) => {
+        //console.log("Entry ISSSSS "+entry.id);
+        this.AlgoliaObjectUpdate(id,pjobc,id, createDate, createdBy);
 
-  // }
+
+      });
+
+      // this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+      //   { protocol: SEARCH_CONFIG.PROTOCOLS });
+
+
+        // var objects = [{
+        //   firstname: 'Jimmie',
+        //   lastname: 'Barninger',
+        //   objectID: id
+        // }];
+
+
+
+
+        // this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
+        // pjobc.objectID = id;
+        // console.log("Content ::::::: "+objects);
+
+        // this.index.saveObjects(objects, function (err, content) {
+        //   if (err) throw err;
+        //   console.log("Add Content :::::: "+content);
+        // });
+        // this.index.addObjects(objects, function(err, content) {
+        //   console.log(content);
+        // });
+
+    }
+    //this.AlgoliaUpdate();
+
+  }
 
   htmlToPlaintext(text) {
     return text ? String(text).replace(/<[^>]+>/gm, ' ') : '';
@@ -238,7 +243,7 @@ export class PostjobService {
 
   AlgoliaObjectUpdate(tranType, pjobc, id, createDate, createdBy) {
     //console.log("Algolia Update Object..... :::::: "+createDate.seconds);
-
+    //let dt:any;
     // console.log("Job Desc Prev ::: "+pjobc.JobDesc);
     // console.log("Job Skill Prev ::: "+pjobc.Skills);
 
@@ -247,6 +252,18 @@ export class PostjobService {
 
     // console.log("Job Desc ::: "+jobDesc);
     // console.log("Job Skill ::: "+skill);
+    //pjobc.LastModifiedDate = new Date();
+
+    /* Used for bulk update
+    dt = pjobc.LastModifiedDate;
+    let time = dt.toDate().getTime();
+    */
+
+    // let dt = pjobc.LastModifiedDate;
+    // //console.log("DAAAA ::: "+dt.toString()+ " KKKKK :: "+dt.toString().indexOf('nanoseconds'));
+    // //console.log("Date "+dt.toString().substring(18,dt.toString().indexOf('nanoseconds')-2));
+    // let lastModify = dt.toString().substring(18,dt.toString().indexOf('nanoseconds')-2);
+    // console.log("dt : "+lastModify);
 
     let objects;
     if ((tranType == null) || (tranType == '')) {
@@ -255,6 +272,7 @@ export class PostjobService {
         objectID: id,
         JobTitle:pjobc.JobTitle,
         Company:pjobc.Company,
+        CompanyLogoURL: pjobc.CompanyLogoURL,
         // JobDesc:pjobc.JobDesc,
         // Skills:pjobc.Skills,
         JobDesc:jobDesc,
@@ -271,6 +289,7 @@ export class PostjobService {
         Compensation:pjobc.Compensation,
         JobLength:pjobc.JobLength,
         TravelRequirements:pjobc.TravelRequirements,
+        isSearchable:pjobc.isSearchable,
         isTeleComute:pjobc.isTeleComute,
         CreatedDate : pjobc.CreatedDate.getTime(),
         CreatedBy : pjobc.CreatedBy,
@@ -283,6 +302,7 @@ export class PostjobService {
         objectID: id,
         JobTitle:pjobc.JobTitle,
         Company:pjobc.Company,
+        CompanyLogoURL: pjobc.CompanyLogoURL,
         // JobDesc:pjobc.JobDesc,
         // Skills:pjobc.Skills,
         JobDesc:jobDesc,
@@ -299,11 +319,13 @@ export class PostjobService {
         Compensation:pjobc.Compensation,
         JobLength:pjobc.JobLength,
         TravelRequirements:pjobc.TravelRequirements,
+        isSearchable:pjobc.isSearchable,
         isTeleComute:pjobc.isTeleComute,
         //CreatedDate : createDate.getTime(),
         CreatedDate : createDate.seconds,
         CreatedBy : createdBy,
         LastModifiedDate:pjobc.LastModifiedDate.getTime(),
+        //LastModifiedDate:time, //Use for bulp update 
         LastModifiedBy:pjobc.LastModifiedBy
       }];
     }
@@ -326,8 +348,14 @@ export class PostjobService {
 
 
 
-  getPostJobsByUser(searchParam, type) {
-    //console.log("List Service ..... 3"+this.PostJobc);
+  getPostJobsByUser(searchParam:string, type:string,serachParam2:string,startDT?:Date,endDt?:Date) {
+
+
+    if ((searchParam.trim() == '') && (serachParam2.trim() !=''))
+      searchParam = serachParam2;
+
+      // console.log("List Service ..... 1"+searchParam);
+      // console.log("List Service ..... 3"+serachParam2);
 
     if (type=='U') {
       this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
@@ -335,7 +363,62 @@ export class PostjobService {
     } else if (type=='C') {
       this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
         ref.where('Company','==',searchParam).orderBy('LastModifiedDate','desc'));      
-    } 
+    } else if (type=='UC') {
+      this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+        ref.where('CreatedBy','==',searchParam).where('Company','==',serachParam2).orderBy('LastModifiedDate','desc'));      
+    }else if (type=='UD') {
+
+      if ((startDT.toString() != 'Invalid Date') && ((endDt.toString() != 'Invalid Date'))) {
+        this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+          ref.where('CreatedBy','==',searchParam).where('LastModifiedDate', '>=', startDT).where('LastModifiedDate', '<=', endDt).orderBy('LastModifiedDate','desc'));        
+
+      } else if (startDT.toString() == 'Invalid Date') {
+        this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+          ref.where('CreatedBy','==',searchParam).where('LastModifiedDate', '<=', endDt).orderBy('LastModifiedDate','desc'));        
+
+      } else if (endDt.toString() == 'Invalid Date') {
+        this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+          ref.where('CreatedBy','==',searchParam).where('LastModifiedDate', '>=', startDT).orderBy('LastModifiedDate','desc'));      
+      } 
+
+    } else if (type=='CD') {
+      //console.log("Value :::: All clear : "+startDT.toString()+ " End Date ::"+endDt.toString());
+
+      if ((startDT.toString() != 'Invalid Date') && ((endDt.toString() != 'Invalid Date'))) {
+        //console.log("All clear : "+startDT.getDate()+ " End Date ::"+endDt);
+        this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+          ref.where('Company','==',searchParam).where('LastModifiedDate', '>=', startDT).where('LastModifiedDate', '<=', endDt).orderBy('LastModifiedDate','desc'));      
+      } else if (startDT.toString() == 'Invalid Date') {
+        //console.log("Start Date Null");
+        this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+          ref.where('Company','==',searchParam).where('LastModifiedDate', '<=', endDt).orderBy('LastModifiedDate','desc'));      
+
+      } else if (endDt.toString() == 'Invalid Date') {
+        //console.log("End Date Null");
+        this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+          ref.where('Company','==',searchParam).where('LastModifiedDate', '>=', startDT).orderBy('LastModifiedDate','desc'));      
+
+      } 
+
+    } else if (type=='UCD') {
+
+      if ((startDT.toString() != 'Invalid Date') && ((endDt.toString() != 'Invalid Date'))) {
+        //console.log("All clear : "+startDT.getDate()+ " End Date ::"+endDt);
+        this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+          ref.where('CreatedBy','==',searchParam).where('Company','==',serachParam2).where('LastModifiedDate', '>=', startDT).where('LastModifiedDate', '<=', endDt).orderBy('LastModifiedDate','desc'));      
+      } else if (startDT.toString() == 'Invalid Date') {
+        //console.log("Start Date Null");
+        this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+          ref.where('CreatedBy','==',searchParam).where('Company','==',serachParam2).where('LastModifiedDate', '<=', endDt).orderBy('LastModifiedDate','desc'));      
+
+      } else if (endDt.toString() == 'Invalid Date') {
+        //console.log("End Date Null");
+        this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+          ref.where('CreatedBy','==',searchParam).where('Company','==',serachParam2).where('LastModifiedDate', '>=', startDT).orderBy('LastModifiedDate','desc'));      
+
+      } 
+
+    }
           //console.log("List Service ..... 4");
     this.PostJobc = this.pjCollection.snapshotChanges().pipe(map(changes => {
       //console.log("List Service ..... 5");
@@ -403,10 +486,10 @@ export class PostjobService {
 
   }
 
-  deletePostJob(postc :  PostJobc) {
-    this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${postc.id}`);
-    this.pjDoc.delete();
-  }
+  // deletePostJob(postc :  PostJobc) {
+  //   this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${postc.id}`);
+  //   this.pjDoc.delete();
+  // }
 
   deletePostJobWithID(id) {
     this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);

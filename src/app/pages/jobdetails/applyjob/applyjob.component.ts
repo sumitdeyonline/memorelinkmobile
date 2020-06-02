@@ -7,8 +7,9 @@ import { ApplyJob } from 'src/app/services/firebase/applyjob/applyjob.model';
 import { UploadResumeService } from 'src/app/services/firebase/uploadresume/upload-resume.service';
 import { ApplyjobService } from 'src/app/services/firebase/applyjob/applyjob.service';
 import { EmailService } from 'src/app/services/email/email.service';
-import { FileUpload } from 'src/app/services/firebase/uploadresume/fileupload';
+import { FileUpload } from 'src/app/services/firebase/uploadresume/FileUpload';
 import { FIREBASE_CONFIG } from 'src/app/global-config';
+import { AngularUtilityComponent } from 'src/app/common';
 //import './../../../../assets/js/smtp.js'; 
 
 @Component({
@@ -31,12 +32,18 @@ export class ApplyjobComponent implements OnInit {
   email: any;
   applySucessMessage: string = FIREBASE_CONFIG.ApplyJobSucess;
   numberOfResume: Number = 0;
+  utility = new AngularUtilityComponent();
 
 
-  constructor(private _activeRoute:ActivatedRoute, private postservice: PostjobService,  private fb: FormBuilder,private rUploadService: UploadResumeService,private ajob: ApplyjobService, private sEmail: EmailService) {
+  constructor(private _activeRoute:ActivatedRoute, 
+              private postservice: PostjobService,  
+              private fb: FormBuilder,
+              private rUploadService: UploadResumeService,
+              private ajob: ApplyjobService, 
+              private sEmail: EmailService) {
     this._activeRoute.paramMap.subscribe(params => {
       this.id = params.get('id');
-      console.log("Key Value :::::::: "+this.id);
+      //console.log("Key Value :::::::: "+this.id);
     }); 
    }
 
@@ -45,13 +52,13 @@ export class ApplyjobComponent implements OnInit {
       this.postservice.getPostJobsById(this.id).subscribe(pjob=> {
         this.pjob = pjob;
         if (this.pjob == null) {
-          console.log("null");
+          //console.log("null");
         } else {
-          console.log("not null");
+          //console.log("not null");
         }
-         console.log("Test...."+ this.pjob.ApplyToEmail);
-         console.log("Test...."+ this.pjob.JobTitle);  
-         console.log("Test...."+ this.pjob.id);  
+        //  console.log("Test...."+ this.pjob.ApplyToEmail);
+        //  console.log("Test...."+ this.pjob.JobTitle);  
+        //  console.log("Test...."+ this.pjob.id);  
   
       })
       
@@ -60,7 +67,8 @@ export class ApplyjobComponent implements OnInit {
         LastName: [null, Validators.required],
         Email: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
         //PhoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{10}')]],
-        PhoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{3}?[-. ]?[0-9]{3}?[-. ]?[0-9]{4}')]],
+        //PhoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{3}?[-. ]?[0-9]{3}?[-. ]?[0-9]{4}')]],
+        PhoneNumber: [null, [Validators.required]],
         CoverLetter:[null],
         // fileUpload: [Validators.required],
         // fileUploadExist: [null]
@@ -129,21 +137,57 @@ export class ApplyjobComponent implements OnInit {
     // } else {
     //   uploadResume = 
     // }
-    let subject = 'Your job has been applyed('+this.pjob.JobTitle+')';
-    let body = '<i>Your job has been applied</i> <br><br> <b>Job Title: </b> '+this.pjob.JobTitle+' <br /> <b>joblocation: </b>'+this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry+'<br /> <b>Job Description : </b>'+this.pjob.JobDesc+' <br />  <br><br> <b>Thank you <br>MemoreLink Team</b>'
-    this.sEmail.sendEmail(this.applyJobForm.get('Email').value,'',subject,body);
+    // let subject = 'Your job has been applyed('+this.pjob.JobTitle+')';
+    // let body = '<i>Your job has been applied</i> <br><br> <b>Job Title: </b> '+this.pjob.JobTitle+' <br /> <b>joblocation: </b>'+this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry+'<br /> <b>Job Description : </b>'+this.pjob.JobDesc+' <br />  <br><br> <b>Thank you <br>MeMoreLink Team</b>'
+    // this.sEmail.sendEmail(this.applyJobForm.get('Email').value,'',subject,body);
     
-    let vJobSublect =this.applyJobForm.get('FirstName').value+' '+this.applyJobForm.get('LastName').value+' has applied the job('+this.pjob.JobTitle+')';
-    let vBody ='<i>'+this.applyJobForm.get('FirstName').value+' '+this.applyJobForm.get('LastName').value+ ' has applied this job</i> <br/> <br/> <b>Candidate Email: </b>'+this.applyJobForm.get('Email').value+'  <br/> <b>Candidate Phone: </b>'+this.applyJobForm.get('PhoneNumber').value+'  <br /> <b>Job Title: </b>'+this.pjob.JobTitle+'  <br /> <b>joblocation: </b>'+this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry+'<br /> <b>Cover Letter : </b>'+this.applyJobForm.get('CoverLetter').value+' <br /> <b>Resume  : </b><a href="'+this.applyJob.fileUploadURL+'">Resume Link</a> <br /><b>Job Description : </b>'+this.pjob.JobDesc+' <br />  <br><br> <b>Thank you <br>MemoreLink Team</b>'
-    this.sEmail.sendEmail(this.pjob.ApplyToEmail,'',vJobSublect,vBody);
+    // let vJobSublect =this.applyJobForm.get('FirstName').value+' '+this.applyJobForm.get('LastName').value+' has applied the job('+this.pjob.JobTitle+')';
+    // let vBody ='<i>'+this.applyJobForm.get('FirstName').value+' '+this.applyJobForm.get('LastName').value+ ' has applied this job</i> <br/> <br/> <b>Candidate Email: </b>'+this.applyJobForm.get('Email').value+'  <br/> <b>Candidate Phone: </b>'+this.applyJobForm.get('PhoneNumber').value+'  <br /> <b>Job Title: </b>'+this.pjob.JobTitle+'  <br /> <b>joblocation: </b>'+this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry+'<br /> <b>Cover Letter : </b>'+this.applyJobForm.get('CoverLetter').value+' <br /> <b>Resume  : </b><a href="'+this.applyJob.fileUploadURL+'">Resume Link</a> <br /><b>Job Description : </b>'+this.pjob.JobDesc+' <br />  <br><br> <b>Thank you <br>MemoreLink Team</b>'
+    // this.sEmail.sendEmail(this.pjob.ApplyToEmail,'',vJobSublect,vBody);
 
-    if ((this.pjob.CCToEmail != null) && (this.pjob.CCToEmail != undefined)) {
-      if (this.pjob.CCToEmail.trim() !='') {
-        this.sEmail.sendEmail(this.pjob.CCToEmail,'',vJobSublect,vBody);
-      } else {
-        //console.log("No CC email");
-      }
-    }
+    // if ((this.pjob.CCToEmail != null) && (this.pjob.CCToEmail != undefined)) {
+    //   if (this.pjob.CCToEmail.trim() !='') {
+    //     this.sEmail.sendEmail(this.pjob.CCToEmail,'',vJobSublect,vBody);
+    //   } else {
+
+    //   }
+    // }
+
+    // let filename='';
+    // for (let i=0;i<this.uResume.length;i++) {
+    //   if (this.applyJob.fileUploadURL.toLowerCase() == this.uResume[i].ResumeURL) {
+    //     filename = this.uResume[i].ResumeFileName;
+    //     break;
+    //   }
+    // }
+
+
+        // Candidate Job Email 
+        let subject = 'You have applied for: '+this.pjob.JobTitle;
+        let body = 'Thank you <b>'+this.applyJobForm.get('Email').value+'</b>  for applying for the job.<br/></br> <b>Job Title: </b> '+this.pjob.JobTitle+' <br /> <b>Job Location: </b>'+this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry+'  <br /> <b>Resume  : </b><a href="'+this.applyJob.fileUploadURL+'">Resume Link</a><br><br /> <b>Job Description : </b>'+this.pjob.JobDesc+' <br><br> <b>Thank you <br>MemoreLink Team</b>'
+        this.sEmail.sendEmail(this.applyJobForm.get('Email').value,'',subject,body);
+        
+        // Recruiter Job Email 
+    
+        let vJobSublect =this.applyJobForm.get('FirstName').value+' '+this.applyJobForm.get('LastName').value+' has applied for the job '+this.pjob.JobTitle;
+        let vBody =this.applyJobForm.get('FirstName').value+' '+this.applyJobForm.get('LastName').value+ ' has applied for the job <br/> <br/> <b>Candidate Email: </b>'+this.applyJobForm.get('Email').value+
+                  '  <br/> <b>Candidate Phone: </b>'+this.applyJobForm.get('PhoneNumber').value+
+                  '  <br/> <b>Cover Letter : </b>'+this.applyJobForm.get('CoverLetter').value+
+                  ' <br /> <b>Resume  : </b><a href="'+this.applyJob.fileUploadURL+'">Resume Link</a><br>'+
+                  '  <br /> <b>Job Title: </b>'+this.pjob.JobTitle+
+                  '  <br /> <b>Job Location: </b>'+this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry+
+                  ' <br /><b>Job Description : </b>'+this.pjob.JobDesc+
+                  ' <br />  <br><br> <b>Thank you <br>MemoreLink Team</b>'
+        this.sEmail.sendEmail(this.pjob.ApplyToEmail,'',vJobSublect,vBody);
+    
+        if ((this.pjob.CCToEmail != null) && (this.pjob.CCToEmail != undefined)) {
+          if (this.pjob.CCToEmail.trim() !='') {
+            this.sEmail.sendEmail(this.pjob.CCToEmail,'',vJobSublect,vBody);
+          } else {
+            //console.log("No CC email");
+          }
+        }
+
 
 
   }
@@ -168,9 +212,9 @@ export class ApplyjobComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
-    console.log("Selected Files ........"+this.selectedFiles);
+    //console.log("Selected Files ........"+this.selectedFiles);
     if (this.validateFile(this.selectedFiles.item(0).name)) {
-      console.log("Upload file........");
+      //console.log("Upload file........");
       this.filleUploadEnabled = true;
     } else {
       this.filleUploadEnabled = false;
@@ -198,6 +242,12 @@ export class ApplyjobComponent implements OnInit {
       this.showUpload = false;
     }
 
+  }
+
+  phoneNumberFormat(phone) {
+    //console.log("Phone : "+phone);
+    //this.applyJobForm.setValue(this.utility.formatUSNumber(phone):'PhoneNumber').value = this.utility.formatUSNumber(phone);
+    this.applyJobForm.controls['PhoneNumber'].setValue(this.utility.formatUSNumber(phone));
   }
 
 

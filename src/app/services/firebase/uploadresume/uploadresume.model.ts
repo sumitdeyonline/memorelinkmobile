@@ -1,4 +1,4 @@
-export interface UploadResume {
+export class UploadResume {
   id? : string;
   UserID? : string;
   Username? : string;
@@ -6,6 +6,6 @@ export interface UploadResume {
   ResumeFileName? : string;
   ResumeURL? : string;
   ResumeExt? : string;
-	CreatedDate? : string;
-	ModifiedDate? : string;
+	CreatedDate? : Date;
+	ModifiedDate? : Date;
 }

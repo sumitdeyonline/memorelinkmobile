@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="start" >
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons> -->
+
+      <ion-buttons slot="start">
+        <ion-back-button>Back</ion-back-button>
+      </ion-buttons>
+    
+    <!-- <ion-title>{{ folder }}</ion-title> -->
+    <ion-title>MeMoreLink</ion-title>
+    <!-- <img src="../../assets/imgs/logo.png"> -->
+
+    <ion-buttons slot="end" >
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" >
+  <ion-header collapse="condense" >
+    <ion-toolbar>
+      <!-- <ion-title size="large">{{ folder }}</ion-title> -->
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+
+
+
+    <form [formGroup]="jobPForm" (ngSubmit)="jobPrediction(jobPForm)">
+      <ion-list lines="full" class="ion-no-margin ion-no-padding">
+        <ion-item>
+          <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required type="text" formControlName="firstname"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Middle Name</ion-label>
+          <ion-input type="text" formControlName="middlename"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required type="text" formControlName="lastname"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Company </ion-label>
+          <ion-label position="stacked">{{companyTemp}}</ion-label>
+          <!-- <ion-input type="text" formControlName="companyname" disabled="true" [ngModel]="companyTemp"></ion-input> -->
+        </ion-item>
+      </ion-list>
+
+
+
+      <div class="ion-padding">
+
+        <div *ngIf="jobPredectionSucessMessage !=''">
+          <!-- <p class="error_Message" *ngIf="jobPredectionSucessMessage !=''">
+            {{ jobPredectionSucessMessage }}         
+          </p>   -->
+          <br>
+          <div *ngIf="jobPredectionSucessMessage !=''" class="progress">
+            <div class="progress-bar progress-bar-info progress-bar-striped"
+    
+                        role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                        aria-valuemin="0" aria-valuemax="100"
+                        [style.background-color]="progress.percentage==EXECELLENT_MATCH_PERCENTAGE?'#1D4200':progress.percentage==GOOD_MATCH_PERCENTAGE?'#649d66':progress.percentage==AVERAGE_MATCH_PERCENTAGE?'#FEB72B':progress.percentage==BAD_MATCH_PERCENTAGE?'red':'blue'"
+                        [ngStyle]="{width:progress.percentage+'%'}">
+                        {{jobPredectionSucessMessage}}%
+              </div>
+          </div>  
+          <p class="disclaimer" *ngIf="progressPercentage == EXECELLENT_MATCH_PERCENTAGE"><b>(According to Numerology</b> this is a excellent match with your name and the company <b>{{companyTemp}}</b>)
+          <p class="disclaimer" *ngIf="progressPercentage == GOOD_MATCH_PERCENTAGE"><b>(According to Numerology</b> this is a good match with your name and the company <b>{{companyTemp}}</b>)
+          <p class="disclaimer" *ngIf="progressPercentage == AVERAGE_MATCH_PERCENTAGE"><b>(According to Numerology</b> this is a average match with your name and the company <b>{{companyTemp}}</b>)
+          <p class="disclaimer" *ngIf="progressPercentage == BAD_MATCH_PERCENTAGE"><b>(According to Numerology</b> this is a bad match with your name and the company <b>{{companyTemp}}</b>)
+          </p>                 
+        </div> 
+
+        <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!jobPForm.valid">Submit</ion-button>
+      </div>    
+    </form>
+    <p class="disclaimer"><b>Disclaimer</b>: Numerology is an old and respected system of divination. It is often but not always accurate.
+      The readings and interpretations are always subordinate to individuals' beliefs and their power to choose who and what they are now and will become.
+      Enjoy this web site. Take with you what insights you find, but please remember that no information received from any method of divination is infallible. Your life is always your choice.
+    </p>
+
+
+
+
+
+  </div>
+</ion-content>

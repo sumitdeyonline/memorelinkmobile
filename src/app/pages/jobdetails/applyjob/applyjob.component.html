@@ -9,7 +9,7 @@
       </ion-buttons>
     
     <!-- <ion-title>{{ folder }}</ion-title> -->
-    <ion-title>Memorelink</ion-title>
+    <ion-title>MeMoreLink</ion-title>
     <!-- <img src="../../assets/imgs/logo.png"> -->
 
     <ion-buttons slot="end" >
@@ -30,7 +30,7 @@
 
     <div style="color: red;" *ngIf="checkApplied">
       <br>
-      {{ applySucessMessage }}
+      {{ applySucessMessage }}{{pjob.JobTitle}}
     </div>
 
     <div *ngIf="!checkApplied">
@@ -50,7 +50,7 @@
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Phone Number <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" formControlName="PhoneNumber"></ion-input>
+            <ion-input required type="text" formControlName="PhoneNumber" (keyup)="phoneNumberFormat($event.target.value);"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Cover Letter </ion-label>
