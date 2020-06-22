@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.techsite.memorelink" version="0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>MeMoreLink</name>
-    <description>Search Tech Jobs,Careers, Find Job with the Numerology Prediction, Upload, Search `Resume - MemoreLink</description>
+    <description>Search Tech Jobs,Careers, Find Job with the Numerology Prediction, Upload, Search Resume - MemoreLink</description>
     <author email="help@memorelink.com" href="http://memorelink.com/">MeMoreLink</author>
     <content src="index.html" />
     <access origin="*" />
