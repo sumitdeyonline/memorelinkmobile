@@ -16,7 +16,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 //import { FIREBASE_CONFIG } from '../../global-config';
 import { formatDate } from '@angular/common';
 import { AuthService } from '../../authentication/auth.service';
-import { FIREBASE_CONFIG } from 'src/app/global-config';
+import { FIREBASE_CONFIG, SEARCH_CONFIG } from 'src/app/global-config';
 import { UserProfile } from '../userprofile/userprofile.model';
 import { UserprofileService } from '../userprofile/userprofile.service';
 
@@ -309,7 +309,7 @@ export class UploadResumeService {
 
 
     this.urCollection = this.afs.collection(FIREBASE_CONFIG.UploadResume, ref =>
-          ref.where('Username','==',user).orderBy('ModifiedDate','desc'));
+          ref.where('Username','==',user).orderBy('ModifiedDate','desc').limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
           //console.log("List Service ..... 4");
     this.UploadResumec = this.urCollection.snapshotChanges().pipe(map(changes => {
       //console.log("List Service ..... 5");

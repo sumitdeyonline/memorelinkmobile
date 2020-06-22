@@ -87,7 +87,7 @@
           <div class="date_desc"><h6 class="title"><a [routerLink]="['/jobdetails',pj.objectID]">{{ pj.JobTitle }}</a></h6>
             <i class="fa fa-building-o" aria-hidden="true"></i>&nbsp;<span class="companyName">{{ pj.Company.substring(0,19) }}</span><span class="companyName" *ngIf="pj.Company.length>15">...</span>
             &nbsp;<ion-icon name="navigate-circle-outline"></ion-icon><span class="meta"><b>{{ pj.JobCity }}, {{ pj.JobState }}</b></span>
-            &nbsp;<ion-icon name="today-outline"></ion-icon>&nbsp;<span class="meta">{{ getDateDiff(pj.LastModifiedDate) }}&nbsp;days</span>
+            &nbsp;<ion-icon name="today-outline"></ion-icon>&nbsp;<span class="meta">{{ getDateDiff(pj.LastModifiedDate) }}</span>
           </div>        
 
         </ion-label>

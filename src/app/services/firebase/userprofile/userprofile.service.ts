@@ -180,9 +180,9 @@ export class UserprofileService {
         this.AlgoliaObjectUpdateBulk(null,uUploadProfile,entry.id, createDate);
 
         //Email Sent to the users
-        let subject = uprofile.FirstName+' '+uUploadProfile.LastName+', we are excited to be a part of MeMoreLink';
-        let body = '<b>'+uprofile.FirstName+' '+uUploadProfile.LastName+', we are excited to be a part of MeMoreLink, we are premier Job site where you can search your dream job with the Numerology Predection, please visit our site(https://memorelink.com) . Wish you best of luck for your future</b>  <br /><br /> UserID : '+uUploadProfile.Email+'<br />Temp Password: Memorelink1 <br /><br />Please send us email(support@memorelink.com) if you want to unsubscribe yourself from us.<br/></br> <b>Thank you <br>MeMoreLink Team</b> '
-        this.sEmail.sendEmail(uUploadProfile.Email,'',subject,body);
+        let subject = uprofile.FirstName+' '+uUploadProfile.LastName+', we are excited to be a part of MemoreLink';
+        let body = '<b>'+uprofile.FirstName+' '+uUploadProfile.LastName+', we are excited to be a part of MemoreLink, we are premier Job site where you can search your dream job with the Numerology Predection, please visit our site(https://memorelink.com) . Wish you best of luck for your future</b>  <br /><br /> UserID : '+uUploadProfile.Email+'<br />Temp Password: Memorelink1 <br /><br />Please send us email(support@memorelink.com) if you want to unsubscribe yourself from us.<br/></br> <b>Thank you <br>MemoreLink Team</b> '
+        this.sEmail.sendEmail(uUploadProfile.Email,'',subject,body,'support');
       });
 
   }
@@ -200,13 +200,13 @@ export class UserprofileService {
 
     if (stype == 'U'){
       this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile, ref =>
-        ref.where('Username','==',usersearchparam));
+        ref.where('Username','==',usersearchparam).limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
     } else if (stype == 'HP') {
       this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile, ref =>
-        ref.where('HomePhone','==',usersearchparam));
+        ref.where('HomePhone','==',usersearchparam).limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
     } else if (stype == 'CP') {
       this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile, ref =>
-        ref.where('CellPhone','==',usersearchparam));
+        ref.where('CellPhone','==',usersearchparam).limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
     }
 
           // console.log("List Service ..... 4");
@@ -228,7 +228,7 @@ export class UserprofileService {
   getCountry() {
 
     // console.log("Country Name  ..... 0");
-    this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country, ref1 =>  ref1.orderBy('CountryName','asc'));
+    this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country, ref1 =>  ref1.orderBy('CountryName','asc').limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
          // console.log("Country Name  ..... 1");
     this.countryProfilec = this.countryCollection.snapshotChanges().pipe(map(changes => {
       // console.log("Country Name  ..... 2");
@@ -249,7 +249,7 @@ export class UserprofileService {
 
     // console.log("Country Name  ..... 0");
     this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country, ref1 =>  
-      ref1.where('countryID','==',countryID));
+      ref1.where('countryID','==',countryID).limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
          // console.log("Country Name  ..... 1");
     this.countryProfilec = this.countryCollection.snapshotChanges().pipe(map(changes => {
       // console.log("Country Name  ..... 2");
@@ -268,7 +268,7 @@ export class UserprofileService {
   getWorkAuthorization(type) {
 
     this.workauthCollection = this.afs.collection(FIREBASE_CONFIG.WorkAuthorization, ref =>
-      ref.where('Auth_Type','==',type).orderBy('SortBy', 'asc'));
+      ref.where('Auth_Type','==',type).orderBy('SortBy', 'asc').limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
        //console.log("List Service ..... 4");
       this.wauthProfilec = this.workauthCollection.snapshotChanges().pipe(map(changes => {
         //console.log("List Service ..... 5");
@@ -305,7 +305,7 @@ export class UserprofileService {
   getStateDetails(country) {
     //console.log("Country Name "+country);
     this.stateCollection = this.afs.collection(FIREBASE_CONFIG.State, ref =>
-          ref.where('CountryName','==',country).orderBy('StateDisplayName', 'asc'));
+          ref.where('CountryName','==',country).orderBy('StateDisplayName', 'asc').limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
            //console.log("List Service ..... 4");
     this.stateProfilec = this.stateCollection.snapshotChanges().pipe(map(changes => {
        //console.log("List Service ..... 5");
@@ -341,7 +341,7 @@ export class UserprofileService {
 
   getUserRoleDetails() {
     this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles, ref =>
-          ref.where('RoleType','==','P').orderBy('OrderBy', 'asc'));
+          ref.where('RoleType','==','P').orderBy('OrderBy', 'asc').limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
           // console.log("List Service ..... 4");
     this.userRoleProfilec = this.userRoleCollection.snapshotChanges().pipe(map(changes => {
       // console.log("List Service ..... 5");
@@ -359,7 +359,7 @@ export class UserprofileService {
 
   getUserAllRoles() {
     this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles, ref =>
-          ref.orderBy('OrderBy', 'asc'));
+          ref.orderBy('OrderBy', 'asc').limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
           // console.log("List Service ..... 4");
     this.userRoleProfilec = this.userRoleCollection.snapshotChanges().pipe(map(changes => {
       // console.log("List Service ..... 5");
@@ -377,7 +377,7 @@ export class UserprofileService {
 
   getUserRoleByRoles(rolename) {
     this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles, ref =>
-          ref.where('RoleName','==',rolename));
+          ref.where('RoleName','==',rolename).limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
           // console.log("List Service ..... 4");
     this.userRoleProfilec = this.userRoleCollection.snapshotChanges().pipe(map(changes => {
       // console.log("List Service ..... 5");

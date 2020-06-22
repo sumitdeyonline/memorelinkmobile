@@ -55,6 +55,12 @@
         <!-- </ion-item>   -->
         <div *ngIf="pjob !=null" [innerHTML]=" pjob.Skills"></div>  
         <ion-item-divider></ion-item-divider>
+
+        <h3 *ngIf="pjob?.ApplyToURL !='' && pjob?.ApplyToURL !=null && pjob?.ApplyToURL !=undefined"> Apply to this URL</h3>
+        <div *ngIf="pjob?.ApplyToURL !='' && pjob?.ApplyToURL !=null && pjob?.ApplyToURL !=undefined"><a href="{{pjob?.ApplyToURL}}" target="_blank">{{pjob?.ApplyToURL}}</a></div>
+        <!-- <hr *ngIf="pjob?.ApplyToURL !='' && pjob?.ApplyToURL !=null && pjob?.ApplyToURL !=undefined"/>     -->
+        <ion-item-divider *ngIf="pjob?.ApplyToURL !='' && pjob?.ApplyToURL !=null && pjob?.ApplyToURL !=undefined"></ion-item-divider>    
+
         
         <ion-item>
           <ion-button size="small" color="tertiary" class="ButtonCapitalize" slot="start" (click) ="onApply()">Apply Now</ion-button>

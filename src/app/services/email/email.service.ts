@@ -10,7 +10,13 @@ export class EmailService {
 
   constructor() { }
 
-  sendEmail(toemail,ccemail, subject,body){
+  sendEmail(toemail,ccemail, subject,body,jobs){
+    let fromEmail='';
+    if (jobs == 'job') {
+      fromEmail = EMAIL_CONFIG.EmailFromJobs;
+    } else {
+      fromEmail = EMAIL_CONFIG.EmailFrom;
+    }
     Email.send({
       // Host : 'smtp.elasticemail.com',
       // Port: '2525',
@@ -26,7 +32,9 @@ export class EmailService {
       //Username : 'memorelink@macgain.com',
       //Password : 'XXXXXXXXXX',
       To : toemail,
-      From : EMAIL_CONFIG.EmailFrom,
+      From : fromEmail,
+      //From : EMAIL_CONFIG.EmailFrom,
+      // From : EMAIL_CONFIG.EmailFromJobs,
   
   
       Subject : subject,

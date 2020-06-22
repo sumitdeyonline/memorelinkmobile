@@ -3,6 +3,7 @@
 export interface PostJobc {
     id? : string;
     objectID? : string;
+    JobID?: string;
     JobTitle? : string;
     JobDesc? : string;
     Skills? : string;
@@ -26,4 +27,5 @@ export interface PostJobc {
     CreatedBy? : string;
     LastModifiedBy? : string;
     LastModifiedDate? : Date;
+    ApplicantCount?: number;
   }

@@ -10,10 +10,10 @@
 
 .btn-default, .widget-content input[type="button"] {
     /*padding-bottom: 3px;*/
-    border-bottom: 2px solid #2185C5;
-    background: #2185C5;
+    border-bottom: 2px solid #f15f43;
+    background: #f15f43;
     color: #ffffff;
-    border-color:#2185C5;
+    border-color:#f15f43;
 }
 .btn-default:hover{
     background-color:#f15f43;
@@ -49,8 +49,8 @@
 
 .btn-success.disabled, .btn-success:disabled {
     color: #fff;
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: #f15f43;
+    border-color: #f15f43;
 }
 
 .btn.disabled, .btn:disabled {
@@ -58,8 +58,8 @@
 }
 .btn-success {
     color: #fff !important;
-    background-color: #28a745 !important;
-    border-color: #28a745 !important;
+    background-color: #f15f43 !important;
+    border-color: #f15f43 !important;
 }
 
 

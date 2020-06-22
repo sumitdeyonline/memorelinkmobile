@@ -16,7 +16,7 @@ import * as algoliasearch from 'algoliasearch';
 
 //import { Http } from '@angular/http';
 
-import { FIREBASE_CONFIG } from 'src/app/global-config';
+import { FIREBASE_CONFIG, SEARCH_CONFIG } from 'src/app/global-config';
 import { AuthService } from '../../authentication/auth.service';
 import { ValueServices } from '../../authentication/valueservices.model';
 import { FileUpload } from '../uploadresume/FileUpload';
@@ -165,15 +165,15 @@ export class UserdetailsService {
     // console.log("Field Type .....  "+fieldType);
     if (fieldType == 'U') {
       this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
-        ref.where('userName','==',userOrRole).orderBy('LastModifiedDate','desc'));
+        ref.where('userName','==',userOrRole).orderBy('LastModifiedDate','desc').limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));
     } else if (fieldType == 'R') {
       this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
-        ref.where('userRole','==',userOrRole).orderBy('LastModifiedDate','desc'));      
+        ref.where('userRole','==',userOrRole).orderBy('LastModifiedDate','desc').limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT));      
     } else if (fieldType == 'A') {
       this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
         ref.where('userRole','in',['EmployerResumeSearch','EmployerPostJob','EmployerPowerUser'])
         //.orderBy('company','asc')
-        .orderBy('LastModifiedDate','desc')
+        .orderBy('LastModifiedDate','desc').limit(SEARCH_CONFIG.ALL_PAGE_RECORD_LIMIT)
         // .startAt(userSeach)
         // .endAt("\uf8ff")
         );    

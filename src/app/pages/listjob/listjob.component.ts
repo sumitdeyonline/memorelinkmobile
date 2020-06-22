@@ -418,10 +418,49 @@ export class ListjobComponent {
   }
 
   getDateDiff(dateIput) {
+    //console.log("dateIput :: "+dateIput);
+    let hleft=0;
     let lastModifyDate = new Date(dateIput);
-    return Math.round(Math.abs(new Date().getTime() - lastModifyDate.getTime())/(24*60*60*1000));
+    let finalResult='';
+    let resultLessthan24 = '';
+    let hr=0,min=0;
+    //console.log("lastModifyDate ::: "+lastModifyDate);
+    let hour=  Math.round(Math.abs(new Date().getTime() - lastModifyDate.getTime())/(60*60*1000));
+    let day = Math.round(hour/24);
+    if (hour >=24){
+      hleft = hour-day*24;
+    } else {
+      hleft = Math.round(Math.abs(new Date().getTime() - lastModifyDate.getTime())/(60*1000));
+      if (hleft > 60 ) {
+        let hr =  Math.round(hleft/60);
+        let min = hleft - hr*60;
+        if (min < 0) min=60+min;
+        resultLessthan24 = hr+" hours "+min+ " minutes ago";
+      } else {
+        resultLessthan24 = Math.abs(hleft)+" minutes ago";
+      } 
+    }
+
+    if (hour<24?finalResult=resultLessthan24:finalResult= ""+day+" days "+Math.abs(hleft)+" hours ago") 
+    // {
+    //   finalResult=""+hleft+" hours ago";
+    // } else {
+    //   finalResult= ""+day+" days "+hleft+" hours ago";
+    // }
+      //let hleft= hour-day*24;
+
+    //console.log("day ::: "+ day+ " Hour left : "+hleft);
+    return finalResult;
+    //return Math.round(Math.abs(new Date().getTime() - lastModifyDate.getTime())/(24*60*60*1000));
     //return Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000);
   }
+
+
+  // getDateDiff(dateIput) {
+  //   let lastModifyDate = new Date(dateIput);
+  //   return Math.round(Math.abs(new Date().getTime() - lastModifyDate.getTime())/(24*60*60*1000));
+  //   //return Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000);
+  // }
 
   setPage(page: number) {
     //console.log("Page Count");
@@ -433,8 +472,6 @@ export class ListjobComponent {
     this.pagedItems = this.PostJobc.slice(0, this.pager.endIndex + 1);
     //console.log("Page Count...1  ::: "+this.pagedItems.length);
 
-
-    
   }
 
 

@@ -10,6 +10,7 @@ export interface ApplyJob {
   CoverLetter? : string;
   fileUploadURL? : string;
   JobID? : string;
+  JobIDSerial? : string;
   JobTitle? : string;
   username? : string;
   joblocation?: string;

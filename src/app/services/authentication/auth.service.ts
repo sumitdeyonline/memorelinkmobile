@@ -76,6 +76,7 @@ export class AuthService {
     //console.log("Login Componenet ******* 1 Username : "+username);
     let loginErrorMsg1 ='';
     //this.auth0.client.login({
+    this.removeSessionItems();
     this.auth0.redirect.loginWithCredentials({
       connection: AUTH_CONFIG.connection,
       responseType: AUTH_CONFIG.responseType, // 'token'
@@ -215,6 +216,21 @@ export class AuthService {
   public logout(): void {
     //console.log("Logout....");
     // Remove tokens and expiry time from localStorage
+    // localStorage.removeItem(SESSION_CONFIG.accessToken);
+    // localStorage.removeItem(SESSION_CONFIG.idToken);
+    // localStorage.removeItem(SESSION_CONFIG.expireAt);
+    // localStorage.removeItem(SESSION_CONFIG.profile);
+    // localStorage.removeItem(SESSION_CONFIG.PostJobRole);
+    // localStorage.removeItem(SESSION_CONFIG.ResumeSearchRole);
+    // localStorage.removeItem(SESSION_CONFIG.AdminRole);
+    // localStorage.removeItem(SESSION_CONFIG.UserRole);
+    this.removeSessionItems();
+    // Go back to the home route
+    this.router.navigate(['']);
+    //this.router.navigate(['/login']);
+  }
+
+  private removeSessionItems() {
     localStorage.removeItem(SESSION_CONFIG.accessToken);
     localStorage.removeItem(SESSION_CONFIG.idToken);
     localStorage.removeItem(SESSION_CONFIG.expireAt);
@@ -223,10 +239,7 @@ export class AuthService {
     localStorage.removeItem(SESSION_CONFIG.ResumeSearchRole);
     localStorage.removeItem(SESSION_CONFIG.AdminRole);
     localStorage.removeItem(SESSION_CONFIG.UserRole);
-    // Go back to the home route
-    this.router.navigate(['/login']);
   }
-
 
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
