@@ -124,7 +124,7 @@ export class ApplyjobComponent implements OnInit {
 
 
 
-      this.ajob.getApplyJobByUserJobIDCandidateTakeOne(checkEmail,this.pjob.id).subscribe(ajob=>{
+      this.ajob.getApplyJobByUserJobIDCandidateTakeOne(checkEmail,this.id).subscribe(ajob=>{
         this.ajobscheck = ajob; 
         //console.log("this.ajobscheck ::: "+this.ajobscheck.length);
         if (this.ajobscheck.length == 0) {
@@ -139,7 +139,7 @@ export class ApplyjobComponent implements OnInit {
             PhoneNumber: this.applyJobForm.get('PhoneNumber').value,
             CoverLetter: this.applyJobForm.get('CoverLetter').value,
             fileUploadURL: this.rUploadService.downloadURLTempResume,
-            JobID: this.pjob.id,
+            JobID: this.id,
             JobIDSerial:this.pjob.JobID,
             JobTitle: this.pjob.JobTitle,
             username : username,
