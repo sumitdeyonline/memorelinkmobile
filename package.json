@@ -37,7 +37,7 @@
     "core-js": "^2.5.4",
     "emailjs": "^2.2.0",
     "firebase": "^7.12.0",
-    "marked": "^1.1.0",
+    "marked": "^4.0.10",
     "ngx-typeahead": "^6.2.1",
     "proc": "^0.2.2",
     "rxjs": "^6.5.4",
